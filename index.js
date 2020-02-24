@@ -10,9 +10,16 @@ const fetchData = async (searchTerm) => {
 
 const input = document.querySelector('input')
 
-const inputMovie = async (event) => {
-    const searchedMovie = await fetchData(event.target.value)
-    console.log(searchedMovie);
+let timeOutId
+const onInput = async event => {
+    if (timeOutId) {
+        clearTimeout(timeOutId)
+    }
+    timeOutId = setTimeout( async () => {
+        const movie = await fetchData(event.target.value)
+        console.log(movie);
+
+    }, 500)
 }
 
-input.addEventListener('input', inputMovie)
+input.addEventListener('input', onInput)
